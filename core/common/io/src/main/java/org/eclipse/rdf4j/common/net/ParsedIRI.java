@@ -783,7 +783,11 @@ public class ParsedIRI implements Cloneable, Serializable {
 				advance(1);
 				String p = parseMember(DIGIT, '/');
 				if (p.length() > 0) {
-					port = Integer.parseInt(p);
+                                        try {
+        					port = Integer.parseInt(p);
+                                        } catch (NumberFormatException e) {
+                                                throw new URISyntaxException("Port number is invalid.");
+                                        }
 				} else {
 					port = -1;
 				}
